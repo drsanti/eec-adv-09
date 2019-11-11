@@ -1,0 +1,11 @@
+
+body{
+    background-color: #111;
+}
+
+.card-body{
+    text-align: center;
+}
+.btn{
+    margin: 5px;
+}
