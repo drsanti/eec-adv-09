@@ -1,0 +1,21 @@
+html,
+body {
+    /* background-color: #111; */
+    text-align: center;
+    margin-top: 20px;
+}
+
+#knob:hover {
+    cursor: pointer;
+}
+
+
+.btn {
+    width: 150px;
+    margin: 4px;
+}
+
+
+.card {
+    margin: 20px;
+}

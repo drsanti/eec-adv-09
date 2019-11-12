@@ -1,13 +1,16 @@
-function Container(title, className, parentId) {
-    this.title = title;
+function Container(options /*title, className, parentId*/ ) {
+    options = options || {};
+    this.text = options.text || '';
+    this.style = options.style || 'bg-dark';
+    this.parent = options.parent;
     this.id = null;
 
-    this.create(title, className, parentId);
+    this.create(this.text, this.style, this.parent);
 }
 Container.prototype.create = function (title, className, parentId) {
     this.id = this.generateUid("ctn");
     const html = `
-        <div class="card text-white ${className ? className : "bg-dark"} mb-3">
+        <div class="card text-white ${className}">
             <div class="card-header" id="cardTitle">
                 ${title ? title : ''}
             </div>
@@ -19,8 +22,7 @@ Container.prototype.create = function (title, className, parentId) {
 
     if (parentId && parentId != '') {
         document.getElementById(parentId).appendChild(div);
-    }
-    else {
+    } else {
         document.body.appendChild(div);
     }
     return this;

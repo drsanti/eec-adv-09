@@ -11,7 +11,7 @@ const WebSocketServer = require('websocket').server; // npm i websocket --save
 //!! HTP Server
 const httpServer = http.createServer();
 httpServer.listen(Config.ServerPort, () => {
-    console.log('HTTP server listening for requests on port ' + httpServer.address().port);
+    console.log('HTTP/WebSockets listening on port ' + httpServer.address().port);
 });
 
 

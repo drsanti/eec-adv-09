@@ -1,9 +1,16 @@
-function Button(text, className, parentId, callback) {
-    this.text = text;
-    this.callback = callback;
+function Button(options /*text, className, parentId, callback*/ ) {
+    options = options || {};
+
+
+    this.text = options.text || "Button";
+    this.className = options.className || options.style || "btn-secondary";
+    this.parent = options.parent || options.parentId;
+    this.callback = options.callback || options.action;
+
+
     this.id = null;
     this.div = null;
-    this.create(text, className, parentId, callback);
+    this.create(this.text, this.className, this.parent, this.callback);
 }
 
 Button.prototype.create = function (text, className, parentId, callback) {
@@ -12,13 +19,14 @@ Button.prototype.create = function (text, className, parentId, callback) {
     this.div = document.createElement('div');
     this.div.innerHTML = html;
 
+    //console.log(`Button: parantId ${parentId}`);
+
     if (parentId && parentId != '') {
         document.getElementById(parentId).appendChild(this.div);
-    }
-    else {
+    } else {
         document.body.appendChild(this.div);
     }
-    document.getElementById(this.id).addEventListener('click', callback ? callback : (event) => { });
+    document.getElementById(this.id).addEventListener('click', callback ? callback : (event) => {});
 
     return this;
 }

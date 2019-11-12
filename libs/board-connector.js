@@ -1,32 +1,58 @@
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
-const COM = "COM3"
-const port = new SerialPort(COM, {
-    baudRate: 115200,
-    parity: 'none',
-    stopBits: 1,
-    dataBits: 8,
-    flowControl: false
-}, function(err) {
-    if (err) {
-        console.log('error: ', err.message);
-        port.close();
-    }
-});
-
-console.info("Connected to " + COM);
-
-const parser = new Readline({
-    delimiter: '\n'
-});
-port.pipe(parser);
 
 
-parser.on('data', function(data) {
-    console.log('Mcu data:', data);
-    adc_exec(data);
-    psw_and_led_exec(data);
-});
+let port = null;
+
+function search_mcu() {
+    return new Promise((resolve, reject) => {
+        SerialPort.list().then(ports => {
+            ports.filter(arr => arr.manufacturer === "FTDI").map(p => {
+                console.dir(p);
+                console.log(`Connecting to ${p.path}...`);
+                let port = new SerialPort(p.path, { baudRate: 115200, parity: 'none', stopBits: 1, dataBits: 8, flowControl: false });
+                port.write(gen_cmd(`adc:0:?`));
+                port.on('data', d => {
+
+                    resolve(port)
+                });
+
+                setTimeout(() => {
+                    reject(`Timeout. Cannot receive response from MCU board ${p.path}!`);
+                }, 2000);
+            })
+            if (ports.length <= 0) {
+                reject(`No port is detected. Cannot connect to MCU board!`);
+            }
+        })
+    });
+}
+
+function connect() {
+    search_mcu().then((p) => {
+        port = p;
+
+        console.log(`Connected to MCU on port ${port.path}`);
+
+        const parser = new Readline({
+            delimiter: '\n'
+        });
+        port.pipe(parser);
+        port.write(gen_cmd(`beep:5000:50`));
+
+        parser.on('data', function (data) {
+            console.log('Mcu data:', data);
+            adc_exec(data);
+            psw_and_led_exec(data);
+        });
+    }).catch(err => {
+        console.log(`Error: ${err}`);
+    });
+}
+
+connect();
+
+//-------------------------------------------------------------------------------------------------------------
 
 
 let adc_vals = [0, 0, 0, 0];
@@ -65,7 +91,7 @@ function adc_exec(data) {
 
 
 //!! for subscribtion callbacks
-let psw_cbks = [null, null, null, null];
+let psw_sub_cbks = [null, null, null, null];
 
 //!! For psw request callbacks
 let psw_req_cbks = [null, null, null, null]
@@ -76,18 +102,24 @@ let led_req_cbks = [null, null, null, null]
 
 function psw_and_led_exec(data) {
 
+
+    //console.log(`psw_and_led_exec: ${data}`);
+
     //!! psw:i:?
     if (data.includes('psw:')) {
         let sw = data[4]; // i
         if (sw >= '0' && sw <= '3') {
             let id = Number(sw);
 
-            if (psw_cbks[id]) {
-                psw_cbks[id]({
+            console.log(`psw-data: ${data}`);
+
+            if (psw_sub_cbks[id]) {
+                psw_sub_cbks[id]({
                     status: 'ok',
                     tag: 'psw',
                     id: id,
-                    val: 'pressed'
+                    val: "on",
+                    type: 'sub'
                 });
             }
             if (psw_req_cbks[id]) {
@@ -96,7 +128,8 @@ function psw_and_led_exec(data) {
                     status: 'ok',
                     tag: 'psw',
                     id: id,
-                    val: data[6]
+                    val: data[6],
+                    type: 'req'
                 });
 
                 //!! Reset it
@@ -128,13 +161,13 @@ function psw_and_led_exec(data) {
 
 function psw_subscribe(id, callback) {
     if (id >= 0 && id <= 3) {
-        psw_cbks[id] = callback;
+        psw_sub_cbks[id] = callback;
     }
 }
 
 function psw_unsubscribe(id, callback) {
     if (id >= 0 && id <= 3) {
-        psw_cbks[id] = null;
+        psw_sub_cbks[id] = null;
     }
 }
 
@@ -183,8 +216,10 @@ function psw_req(id, callback) {
 
     if (id >= 0 && id <= 3) {
         port.write(gen_cmd(`psw:${id}:?`));
+
         //!! assign req callback
         if (callback) {
+
             psw_req_cbks[id] = callback;
         }
     }
