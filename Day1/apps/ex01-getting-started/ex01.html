@@ -1,0 +1,17 @@
+<head>
+    <title>ex01</title>
+    <link rel="stylesheet" href="../libs/bootstrap.min.css">
+    <link rel="stylesheet" href="../libs/ledindicator.min.css">
+    <link rel="stylesheet" href="ex01.css">
+</head>
+
+<body>
+    <script src='../libs/aiot.min.js'></script>
+    <script src='ex01.js'></script>
+    <script>
+        const aiot = new AIot();
+        aiot.start().then(mcu => main(mcu));
+    </script>
+</body>
+
+</html>

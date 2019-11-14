@@ -1,8 +1,0 @@
-html, body{
-    background-color: #111;
-    text-align: center;
-}
-
-#knob:hover{
-    cursor: pointer;
-}

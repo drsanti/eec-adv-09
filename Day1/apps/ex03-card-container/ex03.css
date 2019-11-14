@@ -1,0 +1,19 @@
+html,
+body {
+    background-color: #111;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+}
+
+.btn {
+    margin-bottom: 20px;
+    width: 120px;
+    height: 45px;
+}
+
+.card {
+    /* margin: top right bottom left */
+    margin: 0px 150px 0px 150px;
+
+}

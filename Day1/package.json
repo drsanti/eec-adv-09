@@ -1,0 +1,23 @@
+{
+  "name": "ecc-adv-09",
+  "version": "1.0.1",
+  "description": "ecc-adv-09-day1",
+  "main": "websocket-server.js",
+  "scripts": {
+    "iot": "node apps/libs/server/websocket-server.js",
+    "wss": "node apps/libs/server/websocket-server-nomcu.js",
+    "start": "npm run iot"
+  },
+  "keywords": [
+    "IoT",
+    "HTL",
+    "CSS",
+    "JavaScript"
+  ],
+  "author": "Asst.Prof.Dr.Santi Nuratch",
+  "license": "ISC",
+  "dependencies": {
+    "serialport": "^8.0.5",
+    "websocket": "^1.0.30"
+  }
+}
