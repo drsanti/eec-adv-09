@@ -1,0 +1,30 @@
+<head>
+    <title>ex09</title>
+    <link rel="stylesheet" href="../libs/bootstrap.min.css">
+    <link rel="stylesheet" href="../libs/ledindicator.min.css">
+    <link rel="stylesheet" href="ex09.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="card bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Example9 - Using setInterval() function</h5>
+                <div class="alert alert-success">
+                    Click the START button to start and click the STOP button to stop.
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <script src='../libs/aiot.min.js'></script>
+    <script src='ex09.js'></script>
+    <script>
+        const aiot = new AIot();
+        aiot.start().then(mcu => main(mcu));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+html,
+body {
+    background-color: #111;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+}
+
+.btn {
+    margin-bottom: 20px;
+    width: 120px;
+    height: 45px;
+}
+
+.card {
+    /* margin: top right bottom left */
+    margin: 0px 150px 0px 150px;
+
+}
+
+.card-body {
+    text-align: center;
+    padding-bottom: 0px;
+}
+
+.card-header {
+    font-size: 25px;
+}
+
+.led-red-off,
+.led-green-off,
+.led-blue-off,
+.led-yellow-off {
+    margin-top: 35px;
+    margin-left: 20px;
+}
+
+.led-red-on,
+.led-green-on,
+.led-blue-on,
+.led-yellow-on {
+    margin-top: 35px;
+}

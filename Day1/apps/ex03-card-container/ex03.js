@@ -5,7 +5,7 @@ function main(mcu) {
     //!! Container (Card) used to contain Blue and Green buttons
     const container = new Container({
         text: "LED0 & LED1 Control Panel",
-        style: "bg-danger text-dark"
+        style: "bg-warning text-dark"
     });
 
     //!! Bule button used to control LED0

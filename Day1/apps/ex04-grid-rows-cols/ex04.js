@@ -1,4 +1,5 @@
 function main(mcu) {
+
     //!! Print message to the console window
     console.log("Example04 works!");
 

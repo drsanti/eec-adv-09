@@ -1,0 +1,31 @@
+<head>
+    <title>ex06</title>
+    <link rel="stylesheet" href="../libs/bootstrap.min.css">
+    <link rel="stylesheet" href="../libs/ledindicator.min.css">
+    <link rel="stylesheet" href="ex06.css">
+</head>
+
+<body>
+    <div class="container">
+
+
+        <div class="card bg-danger">
+            <div class="card-body">
+                <h5 class="card-title">Example6 - Ligth Sensor and Gauge Indicator</h5>
+                <div class="alert alert-warning">
+                    Move your hand over the board to change the light intensity.
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <script src='../libs/aiot.min.js'></script>
+    <script src='ex06.js'></script>
+    <script>
+        const aiot = new AIot();
+        aiot.start().then(mcu => main(mcu));
+    </script>
+</body>
+
+</html>
