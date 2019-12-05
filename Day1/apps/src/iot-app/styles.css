@@ -1,0 +1,44 @@
+
+/**
+ * iot-app
+ *
+ * Asst.Prof.Dr.Santi Nuratch
+ * Embedded Computing and Control Laboratory | ECC-Lab @ KMUTT
+ * 21 November, 2019
+ */
+
+body {
+    text-align: center !important;
+}
+
+
+/* Wrapper of the ui-gauge */
+.ui-gauge {
+    margin-left:  25px !important;
+    margin-right: 25px !important;
+}
+
+/* Wrapper of the ui-knob */
+.ui-knob {
+    margin-left:  25px !important;
+    margin-right: 25px !important;
+}
+
+/* Wrapper of the ui-text */
+.ui-text{
+    text-align: center;
+}
+
+.btn{
+    min-width: 120px;
+    margin: 4px;
+}
+.ui-wrapper {
+    margin: 20px 10% 20px 10%;
+}
+.card-header{
+    text-align: center;
+}
+.card-body {
+    text-align: center;
+}

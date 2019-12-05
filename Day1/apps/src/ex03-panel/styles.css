@@ -1,0 +1,22 @@
+/**
+ * ex03-panel
+ *
+ * Asst.Prof.Dr.Santi Nuratch
+ * Embedded Computing and Control Laboratory | ECC-Lab @ KMUTT
+ * 21 November, 2019
+ */
+
+
+.btn{
+    min-width: 120px;
+    margin: 4px;
+}
+.ui-wrapper {
+    margin: 20px 20% 20px 20%;
+}
+.card-header{
+    text-align: center;
+}
+.card-body {
+    text-align: center;
+}

@@ -1,4 +1,3 @@
-
 // const __exdir__  = 'ex01-getting-started';
 // const __exdir__  = 'ex02-engine-callback';
 // const __exdir__  = 'ex03-user-init-function';
@@ -21,22 +20,27 @@
 // const __exdir__  = 'ex20-asset-loading-cloning';
 // const __exdir__  = 'ex21-asset-complex-loader';
 // const __exdir__  = 'ex22-rigid-body-cloning-chain-constraints';
-//const __exdir__  = 'ex23-hinge-constraint-4-wheels';
+// const __exdir__  = 'ex23-hinge-constraint-4-wheels';
 // const __exdir__  = 'ex24-wheels-motors-driving';
 // const __exdir__  = 'ex25-car-turning-camera-tracking';
 // const __exdir__  = 'ex26-robot-arm-particles-demo';
-// const __exdir__  = 'ex27-simple-robot-arm-control';
+// const __exdir__ = 'ex27-simple-robot-arm-control';
 // const __exdir__  = 'ex28-wheel-bot-project-day';
 // const __exdir__  = 'ex29-racing-car-drive';
-const __exdir__  = 'ex30-vihicle-loading-driving';
+// const __exdir__ = 'ex30-vihicle-loading-driving';
+// const __exdir__ = 'ex31-particles-raycasting'
 
 
-// const __exdir__  = 'exxx_last_test';
+
+const __exdir__ = "GameAnimation";
 
 
-const __mode__   = 'dev' //'app';
 //!!
 //!!
+const __mode__ = 'app' /*  'dev' OR 'app';  */
+//!!
+//!!
+
 
 const config = {
   app: {
@@ -51,20 +55,22 @@ const config = {
 const path = require('path');
 
 module.exports = {
-  entry: ( __mode__ === 'app' ) ? './' + config.app.root + '/src/' + config.app.main  :  './src/' + config.dev.main,
+  entry: (__mode__ === 'app') ? './' + config.app.root + '/src/' + config.app.main : './src/' + config.dev.main,
   mode: 'development',
   output: {
-    path: path.resolve( __dirname, config.app.root + '/public' ),
+    path: path.resolve(__dirname, config.app.root + '/public'),
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: path.join( __dirname, config.app.root + '/public' ),
+    contentBase: path.join(__dirname, config.app.root + '/public'),
     compress: true,
     port: 9001,
+    stats: {
+      modules: false,
+    },
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
@@ -76,7 +82,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader:'style-loader!css-loader'
+        loader: 'style-loader!css-loader'
       },
     ]
   },

@@ -1,0 +1,48 @@
+/**
+ * ex05-text
+ *
+ * Asst.Prof.Dr.Santi Nuratch
+ * Embedded Computing and Control Laboratory | ECC-Lab @ KMUTT
+ * 21 November, 2019
+ */
+
+
+//!!
+//!! Local Fonts
+//!!
+@import '../Assets/fonts/Kanit.css';
+@import '../Assets/fonts/Roboto.css';
+
+//!!
+//!! user css
+//!!
+@import './styles.css';
+
+//!!
+//!! NPM Fonts
+//!!
+@import '~font-awesome/css/font-awesome.css';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+//!!
+//!! LED
+//!!
+@import '../libs/inc/UILed.css';
+
+
+//!!
+//!! Using variable
+//!!
+$logo: url('../Assets/images/ecc-logo.jpg');
+
+
+*{
+	padding: 0px;
+	margin: 0px;
+}
+
+body {
+	font-family: 'Kanit', 'Roboto';
+	color: #efe;
+	background-color:#03030a;
+}

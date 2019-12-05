@@ -1,20 +1,35 @@
 /*
-**************************************************************************************
-* ECC-CGP-Engine.js
-* Computer-based Graphics and Physics Engine
-* This is the wrapped version of the EngineCore
-*
-* Dr.Santi Nuratch
-* Embedded System Computing and Control Laboratory
-* ECC-Lab | INC@KMUTT
-*
-* 03 March, 2019
-***************************************************************************************
-*/
+ **************************************************************************************
+ * ECC-CGP-Engine.js
+ * Computer-based Graphics and Physics Engine
+ * This is the wrapped version of the EngineCore
+ *
+ * Dr.Santi Nuratch
+ * Embedded System Computing and Control Laboratory
+ * ECC-Lab | INC@KMUTT
+ *
+ * 03 March, 2019
+ ***************************************************************************************
+ */
 
 
-import { EngineCore, CANNON, THREE, Utils, SPE } from './EngineCore';
-export { Engine, EngineCore, CANNON, THREE, Utils, SPE };
+import {
+    EngineCore,
+    CANNON,
+    THREE,
+    Utils,
+    SPE,
+    Animator
+} from './EngineCore';
+export {
+    Engine,
+    EngineCore,
+    CANNON,
+    THREE,
+    Utils,
+    SPE,
+    Animator
+};
 
 /**
  * Engine Class
@@ -25,9 +40,9 @@ export default class Engine {
      * Constructor of the EngineCore
      * @param {object} options EngineCore options
      */
-    constructor( options ) {
+    constructor(options) {
 
-        this.core = new EngineCore( options );
+        this.core = new EngineCore(options);
     }
 
 
@@ -37,30 +52,30 @@ export default class Engine {
      * @param {function}  callback  callback function will be called after all files are loaded
      * @return Promise
      */
-    init( options, callback ){
+    init(options, callback) {
         //return this.core.init( options, callback );
         // this.core.init( options ).then( (args) => {
         //     console.log( args );
         // });
 
-        return new Promise( (resolve, reject) =>{
-            this.core.init( options, callback ).then( ( args ) => {
-                resolve( args );
-                if(callback) {
-                    callback( args );
+        return new Promise((resolve, reject) => {
+            this.core.init(options, callback).then((args) => {
+                resolve(args);
+                if (callback) {
+                    callback(args);
                 }
 
-               
+
                 this.scene = args.Graphics.scene;
                 this.world = args.Physics.world;
 
                 this.graphics = args.Graphics;
-                this.physics  = args.Physics;
+                this.physics = args.Physics;
 
                 this.options = options;
 
                 //console.log( this );
-            });    
+            });
         });
 
 
@@ -77,97 +92,97 @@ export default class Engine {
      * THREE
      */
     static get GRAPHICS() {
-        return THREE;  
+        return THREE;
     }
 
     /**
      * CANNON
      */
     static get PHYSICS() {
-        return CANNON;  
+        return CANNON;
     }
 
     /**
      * THREE.Color
      */
     static get Color() {
-        return THREE.Color;  
+        return THREE.Color;
     }
 
     /**
      * THREE.Vector3
      */
-    static get Vector3(){
+    static get Vector3() {
         return THREE.Vector3;
     }
 
     /**
      * CANNON.Vec3
      */
-    static get Vec3(){
+    static get Vec3() {
         return CANNON.Vec3;
     }
 
     /**
      * THREE.Vector2
      */
-    static get Vector2(){
+    static get Vector2() {
         return THREE.Vector2;
     }
 
     /**
      * CANNON.Vec2
      */
-    static get Vec2(){
+    static get Vec2() {
         return CANNON.Vec2;
     }
 
     /**
      * Retuen Zero vector (0, 0, 0)
      */
-    static get ZeroVector(){
+    static get ZeroVector() {
         return new CANNON.Vec3(0, 0, 0);
     }
 
     /**
      * Return Forward vector (0, 0, +1)
      */
-    static get ForwardVector(){
+    static get ForwardVector() {
         return new CANNON.Vec3(0, 0, +1);
     }
 
     /**
      * Return Backward vector (0, 0, -1)
      */
-    static get BackwardVector(){
+    static get BackwardVector() {
         return new CANNON.Vec3(0, 0, -1);
     }
 
     /**
      * Return Right vector (-1, 0, 0)
      */
-    static get RightVector(){
+    static get RightVector() {
         return new CANNON.Vec3(-1, 0, 0);
     }
 
     /**
      * Return Left vector (+1, 0, 0)
      */
-    static get LeftVector(){
+    static get LeftVector() {
         return new CANNON.Vec3(+1, 0, 0);
     }
 
     /**
      * Return Up vector (0, +1, 0)
      */
-    static get UpVector(){
+    static get UpVector() {
         return new CANNON.Vec3(0, +1, 0);
     }
 
     /**
      * Return Down vector (0, -1, 0)
      */
-    static get DownVector(){
+    static get DownVector() {
         return new CANNON.Vec3(0, -1, 0);
     }
 
@@ -175,56 +190,56 @@ export default class Engine {
      * Returns scaled forward vector
      * @param {number} scale vector scale
      */
-    getForwardVector( scale ) {
-        return new CANNON.Vec3(0, 0, +1).mult( (scale===undefined?1:scale) );   
+    getForwardVector(scale) {
+        return new CANNON.Vec3(0, 0, +1).mult((scale === undefined ? 1 : scale));
     }
 
-     /**
+    /**
      * Returns scaled backward vector
      * @param {number} scale vector scale
      */
-    getBackwardVector( scale ) {
-        return new CANNON.Vec3(0, 0, -1).mult(scale===undefined?1:scale);   
+    getBackwardVector(scale) {
+        return new CANNON.Vec3(0, 0, -1).mult(scale === undefined ? 1 : scale);
     }
 
-     /**
+    /**
      * Returns scaled right vector
      * @param {number} scale vector scale
      */
-    getRightVector( scale ){
-        return new CANNON.Vec3(-1, 0, 0).mult(scale===undefined?1:scale); 
+    getRightVector(scale) {
+        return new CANNON.Vec3(-1, 0, 0).mult(scale === undefined ? 1 : scale);
     }
 
     /**
      * Returns scaled left vector
      * @param {number} scale vector scale
      */
-    getLeftVector( scale ){
-        return new CANNON.Vec3(+1, 0, 0).mult(scale===undefined?1:scale); 
+    getLeftVector(scale) {
+        return new CANNON.Vec3(+1, 0, 0).mult(scale === undefined ? 1 : scale);
     }
 
     /**
      * Returns scaled up vector
      * @param {number} scale vector scale
      */
-    getUpVector( scale ){
-        return new CANNON.Vec3(0, +1, 0).mult(scale===undefined?1:scale); 
+    getUpVector(scale) {
+        return new CANNON.Vec3(0, +1, 0).mult(scale === undefined ? 1 : scale);
     }
 
     /**
      * Returns scaled down vector
      * @param {number} scale vector scale
      */
-    getDownVector( scale ){
-        return new CANNON.Vec3(0, -1, 0).mult(scale===undefined?1:scale); 
+    getDownVector(scale) {
+        return new CANNON.Vec3(0, -1, 0).mult(scale === undefined ? 1 : scale);
     }
 
     /**
      * Loads texture
      * @param {string} path [ath to image/texture
      */
-    loadImage( path ) {
-        return new THREE.TextureLoader().load( path );
+    loadImage(path) {
+        return new THREE.TextureLoader().load(path);
     }
 
 
@@ -233,16 +248,16 @@ export default class Engine {
      * Start the engine
      * @param {function} callback It the callback is given, the callback will be periodically called every frame.
      */
-    start( callback )  {
-        return this.core.start( callback );   
+    start(callback) {
+        return this.core.start(callback);
     }
 
 
     /**
      * Stop the engine
      */
-    stop()  {
-        return this.core.stop();   
+    stop() {
+        return this.core.stop();
     }
 
 
@@ -269,14 +284,14 @@ export default class Engine {
      * Returns graphics options
      */
     getGraphicsOptions() {
-        return this.core.graphics.options;   
+        return this.core.graphics.options;
     }
 
     /**
      * Returns physics options
      */
     getPhysicsOptions() {
-        return this.core.physics.options;   
+        return this.core.physics.options;
     }
 
     /**
@@ -310,7 +325,7 @@ export default class Engine {
      * @return Graphics
      */
     getGraphics() {
-        return this.core.graphics; 
+        return this.core.graphics;
     }
 
     /**
@@ -333,11 +348,11 @@ export default class Engine {
      * Set camera position and update control
      * @param {number} x x position
      * @param {number} y y position
-     * @param {number} z z position 
+     * @param {number} z z position
      */
-    setCameraPosition( x, y, z ) {
-        this.core.graphics.setCameraPosition( x, y, z );
-        return this;   
+    setCameraPosition(x, y, z) {
+        this.core.graphics.setCameraPosition(x, y, z);
+        return this;
     }
 
     /**
@@ -391,8 +406,8 @@ export default class Engine {
      * Show axes helper
      * @return this
      */
-    showAxes( options ) {
-        this.core.graphics.addAxes( options );
+    showAxes(options) {
+        this.core.graphics.addAxes(options);
         return this;
     }
 
@@ -454,10 +469,10 @@ export default class Engine {
     /**
      * Set color of the target light
      * @param {THREE.Light} light target light
-     * @param {THREE.Color} color color, THREE.Color or HEX color 
+     * @param {THREE.Color} color color, THREE.Color or HEX color
      */
-    setLightColor( light, color ) {
-        light.color = new Engine.Color( color );
+    setLightColor(light, color) {
+        light.color = new Engine.Color(color);
         return this;
     }
 
@@ -466,7 +481,7 @@ export default class Engine {
      * @param {THREE.Light} light target light
      * @param {boolean} visible   true: visible, false: invisible
      */
-    setLightVisible( light, visible ) {
+    setLightVisible(light, visible) {
         light.visible = visible;
         return this;
     }
@@ -476,7 +491,7 @@ export default class Engine {
      * @param {THREE.Light} light target light
      * @param {number} intensity  intensity of light
      */
-    setLightIntensity( light, intensity ) {
+    setLightIntensity(light, intensity) {
         light.intensity = intensity;
         return this;
     }
@@ -490,7 +505,7 @@ export default class Engine {
      * Returns physics object
      */
     getPhysics() {
-        return this.core.physics; 
+        return this.core.physics;
     }
 
     /**
@@ -504,8 +519,8 @@ export default class Engine {
      * Set sub-step of physics solver
      * @param {number} steps number of steps of physics solver
      */
-    setSubSteps( steps ) {
-        if( typeof(steps) == "number" ) {
+    setSubSteps(steps) {
+        if (typeof(steps) == "number") {
             this.core.physics.options.subSteps = steps;
         }
     }
@@ -516,8 +531,8 @@ export default class Engine {
      * @param {number} restitution  Ground restitution
      * @return CANNON.Material
      */
-    createGroundMaterial( friction, restitution ) {
-        return this.core.physics.createGroundMaterial( friction, restitution );
+    createGroundMaterial(friction, restitution) {
+        return this.core.physics.createGroundMaterial(friction, restitution);
     }
 
     /**
@@ -526,8 +541,8 @@ export default class Engine {
      * @param {number} restitution  Object restitution
      * @return CANNON.Material
      */
-    createObjectMaterial( friction, restitution, groundMaterial ) {
-        return this.core.physics.createObjectMaterial( friction, restitution, groundMaterial );
+    createObjectMaterial(friction, restitution, groundMaterial) {
+        return this.core.physics.createObjectMaterial(friction, restitution, groundMaterial);
     }
 
 
@@ -536,9 +551,9 @@ export default class Engine {
      * @param {string} name mesh name
      * @return CANNON.Body
      */
-    getBodyByMeshName( name ) {
+    getBodyByMeshName(name) {
         //console.log("Name: " + name);
-        return this.core.physics.getBodyByMeshName( name );
+        return this.core.physics.getBodyByMeshName(name);
     }
 
 
@@ -560,29 +575,29 @@ export default class Engine {
 
     /**
      * Set/Change the provided body to static body
-     * @param {CANNON.Body} body 
+     * @param {CANNON.Body} body
      */
-    setBodyToStatic( body ) {
-        this.core.physics.changeBodyToStatic( body );
+    setBodyToStatic(body) {
+        this.core.physics.changeBodyToStatic(body);
         return this;
     }
 
     /**
      * Set/Change the provided body to dynamic body
-     * @param {CANNON.Body} body 
+     * @param {CANNON.Body} body
      */
-    setBodyToDynamic( body, mass ) {
-        this.core.physics.changeBodyToDynamic( body, mass );
+    setBodyToDynamic(body, mass) {
+        this.core.physics.changeBodyToDynamic(body, mass);
         return this;
     }
 
     /**
      * Create body from mesh
-     * @param {THREE.Mesh} mesh mesh object 
+     * @param {THREE.Mesh} mesh mesh object
      * @returns CANNON.Body
      */
-    createBodyFromMesh( mesh ) {
-        return this.core.physics.createBodyFromMesh( mesh );
+    createBodyFromMesh(mesh) {
+        return this.core.physics.createBodyFromMesh(mesh);
     }
 
     /**
@@ -593,7 +608,7 @@ export default class Engine {
         return this;
     }
 
-     /**
+    /**
      * Hide body-debugger
      */
     hideDebug() {
@@ -602,29 +617,29 @@ export default class Engine {
     }
 
     /*
-    * Toggle body-debugger visibility. This function works only when the debug is enabled in the { physics:debug{enabled: true} }
-    */
+     * Toggle body-debugger visibility. This function works only when the debug is enabled in the { physics:debug{enabled: true} }
+     */
     toggleDebug() {
         this.core.physics.toggleDebug();
         return this;
     }
-    
+
     /**
      * Adds constraint to physics world
-     * @param {Constraint} constraint 
+     * @param {Constraint} constraint
      */
-    addConstraint( constraint ) {
-        this.core.physics.world.addConstraint( constraint );   
-        return this;   
+    addConstraint(constraint) {
+        this.core.physics.world.addConstraint(constraint);
+        return this;
     }
 
     /**
      * Removes constraint from physics world
-     * @param {Constraint} constraint 
+     * @param {Constraint} constraint
      */
-    removeConstraint( constraint ) {
-        this.core.physics.world.removeConstraint( constraint );   
-        return this;   
+    removeConstraint(constraint) {
+        this.core.physics.world.removeConstraint(constraint);
+        return this;
     }
 
 
@@ -638,8 +653,8 @@ export default class Engine {
      * @param {string} name mesh name
      * @return THREE.Mesh
      */
-    getMeshByName( name ) {
-        return this.core.graphics.getMeshByName( name );
+    getMeshByName(name) {
+        return this.core.graphics.getMeshByName(name);
     }
 
     /**
@@ -663,8 +678,8 @@ export default class Engine {
      * @param {THREE.Scene} scene target scene
      * @return array of THREE.Mesh
      */
-    getMeshesFromScene( scene ) {
-        return this.core.graphics.getMeshesFromScene( scene ); 
+    getMeshesFromScene(scene) {
+        return this.core.graphics.getMeshesFromScene(scene);
     }
 
 
@@ -673,11 +688,11 @@ export default class Engine {
      * @param {THREE.Mesh} mesh THREE Mesh or string
      * @param {number} size Axes size
      */
-    addAxesToMesh( mesh, size ) {
-        if( mesh instanceof THREE.Mesh || mesh instanceof THREE.Group )
-            this.core.graphics.addAxesToMesh( mesh, size );
+    addAxesToMesh(mesh, size) {
+        if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Group)
+            this.core.graphics.addAxesToMesh(mesh, size);
         else
-            this.core.graphics.addAxesToMesh( this.getMeshByName(mesh), size );   
+            this.core.graphics.addAxesToMesh(this.getMeshByName(mesh), size);
         return this;
     }
 
@@ -686,9 +701,9 @@ export default class Engine {
      * @param {CANNON.Body} body CANNON Body
      * @param {number} size Axes size
      */
-    addAxesToBody( body, size ) {
-        this.core.graphics.addAxesToMesh( body.threemesh, size );  
-        return this; 
+    addAxesToBody(body, size) {
+        this.core.graphics.addAxesToMesh(body.threemesh, size);
+        return this;
     }
 
 
@@ -696,31 +711,30 @@ export default class Engine {
      * Removes axes from the spefied mesh
      * @param {THREE.Mesh} mesh THREE Mesh or mesh name
      */
-    removeAxesFromMesh( mesh ) {
-        if( mesh instanceof THREE.Mesh  || mesh instanceof THREE.Group )
-            this.core.graphics.removeAxesFromMesh( mesh );
+    removeAxesFromMesh(mesh) {
+        if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Group)
+            this.core.graphics.removeAxesFromMesh(mesh);
         else
-            this.core.graphics.removeAxesFromMesh( this.getMeshByName( mesh ) );
+            this.core.graphics.removeAxesFromMesh(this.getMeshByName(mesh));
         return this;
     }
 
 
-    toggleAxesOfMesh( mesh, size ) {
+    toggleAxesOfMesh(mesh, size) {
         let target = undefined;
-        if( mesh instanceof THREE.Mesh || mesh instanceof THREE.Group ) {
+        if (mesh instanceof THREE.Mesh || mesh instanceof THREE.Group) {
             target = mesh;
-        }
-        else {
-            target = this.getMeshByName( mesh );
+        } else {
+            target = this.getMeshByName(mesh);
         }
 
-        for(let i=0; i<target.children.length; i++) {
-            if( target.children[i].name.includes('_helper__axes_')) {
-                this.removeAxesFromMesh( target );
+        for (let i = 0; i < target.children.length; i++) {
+            if (target.children[i].name.includes('_helper__axes_')) {
+                this.removeAxesFromMesh(target);
                 return this;
-            } 
+            }
         }
-        this.addAxesToMesh( target, size );
+        this.addAxesToMesh(target, size);
         return this;
     }
 
@@ -728,8 +742,8 @@ export default class Engine {
      * Removes axes from the spefied body
      * @param {CANNON.Body} mesh CANNON Body
      */
-    removeAxesFromBody( mesh ) {
-        this.core.graphics.removeAxesFromMesh( mesh.threemesh );
+    removeAxesFromBody(mesh) {
+        this.core.graphics.removeAxesFromMesh(mesh.threemesh);
         return this;
     }
 
@@ -738,8 +752,8 @@ export default class Engine {
      * Adds axes to all meshes in the currentt scene
      * @param {number} size Axes size
      */
-    addAxesToAllMeshes( size ) {
-        this.core.graphics.addAxesToAllMeshes( size );
+    addAxesToAllMeshes(size) {
+        this.core.graphics.addAxesToAllMeshes(size);
         return this;
     }
 
@@ -747,10 +761,10 @@ export default class Engine {
      * Adds axes to all bodies in the currentt scene
      * @param {number} size Axes size
      */
-    addAxesToAllBodies( size ) {
+    addAxesToAllBodies(size) {
         var bodies = this.getBodies();
         bodies.forEach(body => {
-            this.addAxesToBody( body, size );
+            this.addAxesToBody(body, size);
         });
         return this;
     }
@@ -758,7 +772,7 @@ export default class Engine {
     /**
      * Removes axes from all meshes in the currentt scene
      */
-    removeAxesFromAllMeshes( ) {
+    removeAxesFromAllMeshes() {
         this.core.graphics.removeAxesFromAllMeshes();
         return this;
     }
@@ -769,7 +783,7 @@ export default class Engine {
     removeAxesFromAllBodies() {
         var bodies = this.getBodies();
         bodies.forEach(body => {
-            this.removeAxesFromBody( body );
+            this.removeAxesFromBody(body);
         });
         return this;
     }
@@ -778,7 +792,7 @@ export default class Engine {
      * Apply reflection map to all meshes
      */
     applyReflectionMapToAllMeshes() {
-        this.core.graphics.applyReflectionMap( undefined );
+        this.core.graphics.applyReflectionMap(undefined);
         return this;
     }
 
@@ -786,7 +800,7 @@ export default class Engine {
      * Remove reflection map from all meshes
      */
     removeReflectionMapFromAllMeshes() {
-        this.core.graphics.removeReflectionMap( undefined );
+        this.core.graphics.removeReflectionMap(undefined);
         return this;
     }
 
@@ -800,8 +814,8 @@ export default class Engine {
      * @param {string} key      a character or key name
      * @param {number} interval time between each key pressed
      */
-    getKeyDown( key, interval ) {
-        return this.core.keyboard.getKeyDown( key, interval );
+    getKeyDown(key, interval) {
+        return this.core.keyboard.getKeyDown(key, interval);
     }
 
 
@@ -821,7 +835,7 @@ export default class Engine {
      */
     getRaycast() {
         const raycast = this.core.raycaster.doRaycast();
-        if(raycast.length < 1) return undefined;
+        if (raycast.length < 1) return undefined;
         return raycast[0];
     }
 
@@ -840,10 +854,10 @@ export default class Engine {
     /**
      * Return ray.direction of the raycasting operation
      */
-    getRayDirection() { 
+    getRayDirection() {
         const ray = this.getRay();
-        if(!ray) return undefined;
-        return new CANNON.Vec3(ray.direction.x, ray.direction.y, ray.direction.z); 
+        if (!ray) return undefined;
+        return new CANNON.Vec3(ray.direction.x, ray.direction.y, ray.direction.z);
     }
 
     /**
@@ -851,7 +865,7 @@ export default class Engine {
      */
     getRayOrigin() {
         const ray = this.getRay();
-        if(!ray) return undefined;
+        if (!ray) return undefined;
         return new CANNON.Vec3(ray.origin.x, ray.origin.y, ray.origin.z);
     }
 
@@ -865,7 +879,7 @@ export default class Engine {
      */
     getRayIntersec() {
         const raycast = this.getRaycast();
-        if( raycast ) return raycast.intersect;
+        if (raycast) return raycast.intersect;
         return undefined;
     }
 
@@ -875,7 +889,7 @@ export default class Engine {
     getRayDistance() {
         const raycast = this.getRaycast();
         const intersect = raycast.intersect;
-        if(!intersect) return undefined;
+        if (!intersect) return undefined;
         return intersect.distance;
     }
 
@@ -885,7 +899,7 @@ export default class Engine {
     getRayPoint() {
         const raycast = this.getRaycast();
         const intersect = raycast.intersect;
-        if(!intersect) return undefined;
+        if (!intersect) return undefined;
         return new CANNON.Vec3(intersect.point.x, intersect.point.y, intersect.point.z);
     }
 
@@ -900,7 +914,7 @@ export default class Engine {
     getRayMesh() {
         const raycast = this.getRaycast();
         const mesh = raycast.mesh;
-        if( mesh && mesh.parent && mesh.parent instanceof THREE.Group ) {
+        if (mesh && mesh.parent && mesh.parent instanceof THREE.Group) {
             return mesh.parent;
         }
         return mesh;
@@ -911,8 +925,8 @@ export default class Engine {
      */
     getRayBody() {
         const raycast = this.getRaycast();
-        if( raycast.mesh ) {
-            return this.getBodyByMeshName( raycast.mesh.name );
+        if (raycast.mesh) {
+            return this.getBodyByMeshName(raycast.mesh.name);
         }
         return undefined;
     }
@@ -926,22 +940,22 @@ export default class Engine {
      * @param {number} scale force or impulse scale
      * @param {number} type  0: force, 1: local force, 2: impulse, 3: local impulse
      */
-    applyForceImpulseWorldLocal( scale, type ) {
+    applyForceImpulseWorldLocal(scale, type) {
         const raycast = this.getRaycast();
-        if(!raycast) return undefined;
-        const direction = new CANNON.Vec3(raycast.ray.direction.x,   raycast.ray.direction.y,   raycast.ray.direction.z);
-        const point     = new CANNON.Vec3(raycast.intersect.point.x, raycast.intersect.point.y, raycast.intersect.point.z);
+        if (!raycast) return undefined;
+        const direction = new CANNON.Vec3(raycast.ray.direction.x, raycast.ray.direction.y, raycast.ray.direction.z);
+        const point = new CANNON.Vec3(raycast.intersect.point.x, raycast.intersect.point.y, raycast.intersect.point.z);
         //console.log( raycast.mesh.name );
-        const body = this.getBodyByMeshName( raycast.mesh.name );
-        if( !body ) return
-        if( type === 0 ) {
-            body.applyForce( direction.mult(scale), point );    
-        }else if( type === 1 ){
-            body.applyLocalForce( direction.mult(scale), point );    
-        }else if( type === 2 ){
-            body.applyImpulse( direction.mult(scale), point );    
-        }else if( type === 3 ){
-            body.applyLocalImpulse( direction.mult(scale), point );    
+        const body = this.getBodyByMeshName(raycast.mesh.name);
+        if (!body) return
+        if (type === 0) {
+            body.applyForce(direction.mult(scale), point);
+        } else if (type === 1) {
+            body.applyLocalForce(direction.mult(scale), point);
+        } else if (type === 2) {
+            body.applyImpulse(direction.mult(scale), point);
+        } else if (type === 3) {
+            body.applyLocalImpulse(direction.mult(scale), point);
         }
         return this;
     }
@@ -951,8 +965,8 @@ export default class Engine {
      * @param {number} forceScale force scale to be applied to the raycasted body
 
      */
-    applyForceToRayBody( forceScale ) {
-        this.applyForceImpulseWorldLocal( forceScale, 0 );
+    applyForceToRayBody(forceScale) {
+        this.applyForceImpulseWorldLocal(forceScale, 0);
         return this;
     }
 
@@ -960,8 +974,8 @@ export default class Engine {
      * Apply local force to raycasted rigid body
      * @param {number} forceScale force scale to be applied to the raycasted body
      */
-    applyLocalForceToRayBody( forceScale ) {
-        this.applyForceImpulseWorldLocal( forceScale, 1 );
+    applyLocalForceToRayBody(forceScale) {
+        this.applyForceImpulseWorldLocal(forceScale, 1);
         return this;
     }
 
@@ -969,8 +983,8 @@ export default class Engine {
      * Apply impulse to raycased rigid body
      * @param {number} impulseScale impulse scale to be applied to the raycasted body
      */
-    applyImpulseToRayBody( impulseScale ) {
-        this.applyForceImpulseWorldLocal( impulseScale, 2 );
+    applyImpulseToRayBody(impulseScale) {
+        this.applyForceImpulseWorldLocal(impulseScale, 2);
         return this;
     }
 
@@ -978,8 +992,8 @@ export default class Engine {
      * Apply local impulse to raycased rigid body
      * @param {number} impulseScale impulse scale to be applied to the raycasted body
      */
-    applyLocalImpulseToRayBody( impulseScale ) {
-        this.applyForceImpulseWorldLocal( impulseScale, 3 );
+    applyLocalImpulseToRayBody(impulseScale) {
+        this.applyForceImpulseWorldLocal(impulseScale, 3);
         return this
     }
 
@@ -993,8 +1007,8 @@ export default class Engine {
      * @param {string} message      message to be printed to console window
      * @param {string} typeOrColor  message type or message color code
      */
-    print( message, typeOrColor ) {
-        Utils.print( message, typeOrColor );
+    print(message, typeOrColor) {
+        Utils.print(message, typeOrColor);
         return this;
     }
 
@@ -1002,8 +1016,8 @@ export default class Engine {
      * Print info-message to console window
      * @param {string} message message to be printed to console window
      */
-    printInfo( message ) {
-        Utils.printInfo( message );
+    printInfo(message) {
+        Utils.printInfo(message);
         return this;
     }
 
@@ -1011,8 +1025,8 @@ export default class Engine {
      * Print success-message to console window
      * @param {string} message message to be printed to console window
      */
-    printSuccess( message ) {
-        Utils.printSuccess( message );
+    printSuccess(message) {
+        Utils.printSuccess(message);
         return this;
     }
 
@@ -1020,8 +1034,8 @@ export default class Engine {
      * Print warning-message to console window
      * @param {string} message message to be printed to console window
      */
-    printWarning( message ) {
-        Utils.printWarning( message );
+    printWarning(message) {
+        Utils.printWarning(message);
         return this;
     }
 
@@ -1029,8 +1043,8 @@ export default class Engine {
      * Print danger-message to console window
      * @param {string} message message to be printed to console window
      */
-    printDanger( message ) {
-        Utils.printDanger( message );
+    printDanger(message) {
+        Utils.printDanger(message);
         return this;
     }
 
@@ -1038,8 +1052,8 @@ export default class Engine {
      * Print primary-message to console window
      * @param {string} message message to be printed to console window
      */
-    printPrimary( message ) {
-        Utils.printPrimary( message );
+    printPrimary(message) {
+        Utils.printPrimary(message);
         return this;
     }
 
@@ -1049,31 +1063,31 @@ export default class Engine {
     /**********************************************************************************************************/
     /**
      * Adds label to the mesh
-     * @param {THREE.Mesh} mesh  target mesh 
+     * @param {THREE.Mesh} mesh  target mesh
      * @param {string}     label label/text to be displayed on the mesh
      */
-    addLabel( mesh, label ) {
-        this.core.labelRenderer.addLabel( mesh, label );
+    addLabel(mesh, label) {
+        this.core.labelRenderer.addLabel(mesh, label);
         return this;
     }
 
     /**
      * Changes css class name of the label
-     * @param {THREE.Mesh} mesh  target mesh 
+     * @param {THREE.Mesh} mesh  target mesh
      * @param {string} className css class name
      */
-    setLabelClass( mesh, className ) {
-        this.core.labelRenderer.setLabelClass( mesh, className );
+    setLabelClass(mesh, className) {
+        this.core.labelRenderer.setLabelClass(mesh, className);
         return this;
     }
 
     /**
      * Adds css class name into css classList of the label element
-     * @param {HREE.Mesh} mesh   target mesh 
+     * @param {HREE.Mesh} mesh   target mesh
      * @param {string} className css class name
      */
-    addLabelClass( mesh, className ) {
-        this.core.labelRenderer.addLabelClass( mesh, className );
+    addLabelClass(mesh, className) {
+        this.core.labelRenderer.addLabelClass(mesh, className);
         return this;
     }
 
@@ -1081,8 +1095,8 @@ export default class Engine {
      * Returns label of the provided mesh
      * @param {THREE.Mesh} mesh target mesh
      */
-    getLabel( mesh ) {
-        return this.core.labelRenderer.getLabel( mesh );
+    getLabel(mesh) {
+        return this.core.labelRenderer.getLabel(mesh);
     }
 
     /**
@@ -1090,8 +1104,8 @@ export default class Engine {
      * @param {THREE.Mesh} mesh  target mesh
      * @param {string}     label label/text to be displayed on the mesh
      */
-    setLabelText( mesh, label ) {
-        this.core.labelRenderer.setLabelText( mesh, label );
+    setLabelText(mesh, label) {
+        this.core.labelRenderer.setLabelText(mesh, label);
         return this;
     }
 
@@ -1101,7 +1115,7 @@ export default class Engine {
      * @param {THREE.Vector3} position label position
      */
     setLabelPosition(mesh, position) {
-        this.core.labelRenderer.setLabelPosition( mesh, position );
+        this.core.labelRenderer.setLabelPosition(mesh, position);
         return this;
     }
 
@@ -1109,15 +1123,15 @@ export default class Engine {
      * Add labels to meshes in the current scene
      */
     addLabelToObjects() {
-        this.core.labelRenderer.addLabelToObjects( );
+        this.core.labelRenderer.addLabelToObjects();
         return this;
     }
 
     /**
      * Removes all labels from meshes in the current scene
      */
-    removeLabel( mesh ) {
-        this.core.labelRenderer.removeLabel( mesh ); 
+    removeLabel(mesh) {
+        this.core.labelRenderer.removeLabel(mesh);
         return this;
     }
 
@@ -1125,7 +1139,7 @@ export default class Engine {
      * Removes all labels from meshes in the current scene
      */
     removeLabelFromObjects() {
-        this.core.labelRenderer.removeLabelFromObjects();   
+        this.core.labelRenderer.removeLabelFromObjects();
         return this;
     }
 
@@ -1136,8 +1150,8 @@ export default class Engine {
         this.core.labelRenderer.show();
         return this;
     }
-    
-    
+
+
     /**
      * Hide labels
      */
@@ -1154,36 +1168,36 @@ export default class Engine {
         //return this;
     }
 
-    setLabelPosition( mesh, position ) {
-        this.core.labelRenderer.setLabelPosition( mesh, position );
-        return this; 
+    setLabelPosition(mesh, position) {
+        this.core.labelRenderer.setLabelPosition(mesh, position);
+        return this;
     }
 
     //!*********************************************************************************************************
     //!  Asset Loader      AssetLoader       AssetLoader       AssetLoader       AssetLoader       AssetLoader *
     //!*********************************************************************************************************
-    
+
     /**
      * Loads asset, the special model. This model includes actor/character and colliders.
      * @param {string}   model      GLTF file name
      * @param {function} callback   callback function
      * @return Promise
      */
-    loadAssets( model, callback ) {
-        
-        return this.core.assetLoader.load( model, callback );
+    loadAssets(model, callback) {
+
+        return this.core.assetLoader.load(model, callback);
     }
 
-    
+
     /**
      * Loads vihicle, the special model. This model includes actors/meshes and their colliders.
      * @param {string}   model      GLTF file name
      * @param {function} callback   callback function
      * @return Promise
      */
-    loadVihicle( model, callback ) {
-        
-        return this.core.assetLoader.loadVihicle( model, callback );
+    loadVihicle(model, callback) {
+
+        return this.core.assetLoader.loadVihicle(model, callback);
     }
 
     /**
@@ -1191,8 +1205,8 @@ export default class Engine {
      * @param {THREE.Mesh|THREE.Group} srcAsset prototype object
      * @param {string} clonedName name of cloned object
      */
-    copyAsset( srcAsset, clonedName ) {
-        return this.core.assetLoader.copyAsset( srcAsset, clonedName );
+    copyAsset(srcAsset, clonedName) {
+        return this.core.assetLoader.copyAsset(srcAsset, clonedName);
     }
 
     /**
@@ -1201,9 +1215,9 @@ export default class Engine {
      * @param {function} callback callback function
      * @return Promise
      */
-    loadComplex( model, callback ) {
-        
-        return this.core.assetLoader.loadComplex( model, callback );
+    loadComplex(model, callback) {
+
+        return this.core.assetLoader.loadComplex(model, callback);
     }
 
     /**
@@ -1212,8 +1226,8 @@ export default class Engine {
      * @param {*} callback   callback function
      * @return Promise
      */
-    loadModel( model, callback ) {
-        return this.core.loadModel( model, callback );
+    loadModel(model, callback) {
+        return this.core.loadModel(model, callback);
     }
 
 
@@ -1222,47 +1236,47 @@ export default class Engine {
      * @param {THREE.Mesh | THREE.Group} srcMesh sorce object (mesh or group)
      * @param {string} clonedName name of cloned mesh or group
      */
-    cloneMesh( srcMesh, clonedName ) {
-        
+    cloneMesh(srcMesh, clonedName) {
+
         let actor;
         clonedName = clonedName ? clonedName : '';
 
         //console.log( srcMesh );
-        
-        if( srcMesh instanceof THREE.Group ) {
+
+        if (srcMesh instanceof THREE.Group) {
             actor = new THREE.Group();
             srcMesh.traverse(c => {
-                
-                if( c instanceof THREE.Mesh ) {
-                    let mesh = new THREE.Mesh( c.geometry, c.material );
+
+                if (c instanceof THREE.Mesh) {
+                    let mesh = new THREE.Mesh(c.geometry, c.material);
                     mesh.name = c.name;
                     mesh.position.copy(c.position);
                     mesh.rotation.copy(c.rotation);
-                    mesh.quaternion.copy(c.quaternion); 
-                    actor.add( mesh );
+                    mesh.quaternion.copy(c.quaternion);
+                    actor.add(mesh);
                 }
             });
             actor.name = clonedName;
             actor.position.copy(srcMesh.position);
             actor.rotation.copy(srcMesh.rotation);
-            actor.quaternion.copy(srcMesh.quaternion); 
+            actor.quaternion.copy(srcMesh.quaternion);
             actor.scale.copy(srcMesh.scale);
-        }else {
-            actor  = new THREE.Mesh( srcMesh.geometry, srcMesh.material.clone() ); 
+        } else {
+            actor = new THREE.Mesh(srcMesh.geometry, srcMesh.material.clone());
             actor.name = clonedName;
             actor.position.copy(srcMesh.position);
             actor.rotation.copy(srcMesh.rotation);
-            actor.quaternion.copy(srcMesh.quaternion);   
-            actor.scale.copy(srcMesh.scale); 
+            actor.quaternion.copy(srcMesh.quaternion);
+            actor.scale.copy(srcMesh.scale);
         }
         return actor;
     }
 
     /**
      * Remove body and its components (threemesh and its children) from the world and scene
-     * @param {CANNON.Body} body 
+     * @param {CANNON.Body} body
      */
-    removeBody( body ) {
+    removeBody(body) {
         this.core.physics.removeFarObjects([body]);
     }
 
@@ -1272,7 +1286,7 @@ export default class Engine {
     getDeltaTime() {
         return this.core.properties.timing.deltaTime;
     }
-    
+
     /**
      * Returns processing time of graphics in milliseconds
      */
@@ -1292,30 +1306,27 @@ export default class Engine {
      */
     getProcessingTime() {
         return this.core.properties.timing.processingTime;
-    } 
+    }
 
     /**
      * Returns number of frames per second
      */
     getFrameRate() {
-        return 1000.0/this.core.properties.timing.deltaTime;
+        return 1000.0 / this.core.properties.timing.deltaTime;
     }
 
     /**
      * Return processing load in percent
      */
-    getProcessingLoad( target ) {
+    getProcessingLoad(target) {
         //!! 100% = 1000/60 mS
-        if( target === 'graphics' ) {
-            return 100* this.core.properties.graphics.processingTime/(1000.0/60.0);
-        }
-        else if(target === 'physics' ) {
-            return 100*this.core.properties.physics.processingTime/(1000.0/60.0);
-        }
-        else if(target === 'total' || !target) {
-            return 100*this.core.properties.timing.processingTime/(1000.0/60.0);
-        }
-        else {
+        if (target === 'graphics') {
+            return 100 * this.core.properties.graphics.processingTime / (1000.0 / 60.0);
+        } else if (target === 'physics') {
+            return 100 * this.core.properties.physics.processingTime / (1000.0 / 60.0);
+        } else if (target === 'total' || !target) {
+            return 100 * this.core.properties.timing.processingTime / (1000.0 / 60.0);
+        } else {
             throw "The target \"" + target + "\" is not supported!";
         }
     }

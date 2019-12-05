@@ -1,0 +1,26 @@
+/**
+ * tsconfig.json
+ *
+ * Asst.Prof.Dr.Santi Nuratch
+ * Embedded Computing and Control Laboratory; ECC-Lab.
+ * 07 November, 2019
+ */
+
+{
+    "compilerOptions": {
+        "module":               "es6",
+        "target":               "es5",
+        "removeComments":       true,
+        "noImplicitAny":        true,
+        "preserveConstEnums":   true,
+        "sourceMap":            true,
+        "inlineSources":        true,
+        "allowJs":              true,
+    },
+    // "include": [
+    //     "src/**"
+    // ],
+    "exclude": [
+        "node_modules"
+    ]
+}

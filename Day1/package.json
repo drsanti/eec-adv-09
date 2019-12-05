@@ -1,22 +1,58 @@
 {
-  "name": "ecc-adv-09",
+  "name": "ecc-special-2019",
   "version": "1.0.1",
-  "description": "ecc-adv-09-day1",
-  "main": "websocket-server.js",
+  "description": "A template for web application based on webpack",
+  "private": true,
   "scripts": {
-    "iot": "node apps/libs/server/websocket-server.js",
-    "wss": "node apps/libs/server/websocket-server-nomcu.js",
-    "start": "npm run iot"
+    "rollup": "rollup -c",
+    "uglify": "uglifyjs src/libs/build/UICore.all.js -o src/libs/UICore.js --source-map",
+    "compile": "npm run rollup && npm run uglify",
+    "publish": "npm run compile && cp -rf src/libs/ECC-GUI-Engine.ts apps/src/libs/ECC-GUI-Engine.ts && cp -rf src/libs/UICore.js apps/src/libs/UICore.js && cp -rf src/Assets apps/src && cp -rf src/libs/inc apps/src/libs && cp -rf src/server apps/src/libs",
+    "start": "webpack-dev-server --colors --hot --inline --open",
+    "build": "webpack --config webpack.config.js",
+    "build-production": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "dev:iot": "nodemon src/server/websocket-server.js",
+    "dev:wss": "nodemon src/server/websocket-server-nomcu.js",
+    "iot": "node apps/src/libs/server/websocket-server.js",
+    "wss": "node apps/src/libs/server/websocket-server-nomcu.js"
+
   },
   "keywords": [
-    "IoT",
-    "HTL",
-    "CSS",
-    "JavaScript"
+    "Webpack",
+    "Babel",
+    "SASS",
+    "WebApp"
   ],
   "author": "Asst.Prof.Dr.Santi Nuratch",
   "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "autoprefixer": "^9.6.1",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.4",
+    "cross-env": "^6.0.3",
+    "css-loader": "^3.2.0",
+    "cssnano": "^4.1.10",
+    "file-loader": "^4.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "postcss-loader": "^3.0.0",
+    "rollup": "^1.27.2",
+    "rollup-plugin-typescript2": "^0.25.2",
+    "sass": "^1.22.12",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
+    "terser": "^4.4.0",
+    "ts-loader": "^6.2.0",
+    "typescript": "^3.7.2",
+    "uglify-es": "^3.3.9",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
+  },
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "font-awesome": "^4.7.0",
     "serialport": "^8.0.5",
     "websocket": "^1.0.30"
   }
