@@ -24,12 +24,13 @@
 // const __exdir__  = 'ex24-wheels-motors-driving';
 // const __exdir__  = 'ex25-car-turning-camera-tracking';
 // const __exdir__  = 'ex26-robot-arm-particles-demo';
-// const __exdir__ = 'ex27-simple-robot-arm-control';
+// const __exdir__  = 'ex27-simple-robot-arm-control';
 // const __exdir__  = 'ex28-wheel-bot-project-day';
 // const __exdir__  = 'ex29-racing-car-drive';
-// const __exdir__ = 'ex30-vihicle-loading-driving';
-// const __exdir__ = 'ex31-particles-raycasting'
-
+// const __exdir__  = 'ex30-vihicle-loading-driving';
+// const __exdir__  = 'ex31-particles-raycasting'
+// const __exdir__ = 'ex32-animations'
+// const __exdir__ = 'ex33-simple-arm'
 
 
 const __exdir__ = "GameAnimation";
@@ -65,9 +66,6 @@ module.exports = {
     contentBase: path.join(__dirname, config.app.root + '/public'),
     compress: true,
     port: 9001,
-    stats: {
-      modules: false,
-    },
   },
   module: {
     rules: [{

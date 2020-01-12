@@ -1,13 +1,23 @@
-## Basic Game & Animation Programming
+# Basic Game & Animation Programming
 
-#### Start Webpack
+![snap](apps/public/images/snapshot002.png)
+
+
+## Install
+
+```text
+npm install
 ```
+
+## Start Webpack
+
+```text
 npm start
 ```
 
+## Note
 
-#### Note:
-```
+```text
  *
  * This framework is developed and provided for ECC-Lab only!
  * Asst.Prof.Dr.Santi Nuratch

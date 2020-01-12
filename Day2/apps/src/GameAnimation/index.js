@@ -4,10 +4,10 @@
 import GameEngine from '../libs/GameEngine'
 
 new GameEngine({
-    models:     ['mulan', 'mousey', 'ortiz', 'doozy', 'nancy', 'pubg'],
-    onReady:    ready,
-    onLoaded:   loaded,
-    onUpdate:   update
+    models: ['mulan', 'mousey', 'ortiz', 'doozy', 'nancy', 'pubg'],
+    onReady: ready,
+    onLoaded: loaded,
+    onUpdate: update
 })
 
 
@@ -20,7 +20,7 @@ function loaded(engine, animator, character, name) {
 }
 
 function update(engine, animator, character, name) {
-    if(name == 'mulan') {
+    if (name == 'mulan') {
         animator.playAnimationByKeyboard();
     }
 }
