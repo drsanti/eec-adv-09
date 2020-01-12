@@ -2,7 +2,6 @@
 
 ![snap](apps/public/images/snapshot002.png)
 
-
 ## Install
 
 ```text
