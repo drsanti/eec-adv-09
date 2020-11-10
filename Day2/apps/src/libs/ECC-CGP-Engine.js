@@ -355,6 +355,11 @@ export default class Engine {
         return this;
     }
 
+    setSceneBackgroundColor(hexColor) {
+        this.core.graphics.scene.background = new THREE.Color(hexColor);
+        return this;
+    }
+
     /**
      * Returns the current renderer object
      * @return Graphics.Renderer
@@ -520,7 +525,7 @@ export default class Engine {
      * @param {number} steps number of steps of physics solver
      */
     setSubSteps(steps) {
-        if (typeof(steps) == "number") {
+        if (typeof (steps) == "number") {
             this.core.physics.options.subSteps = steps;
         }
     }
