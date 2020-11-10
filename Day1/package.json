@@ -15,7 +15,6 @@
     "dev:wss": "nodemon src/server/websocket-server-nomcu.js",
     "iot": "node apps/src/libs/server/websocket-server.js",
     "wss": "node apps/src/libs/server/websocket-server-nomcu.js"
-
   },
   "keywords": [
     "Webpack",
