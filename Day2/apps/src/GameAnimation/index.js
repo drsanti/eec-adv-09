@@ -1,9 +1,5 @@
 
-// import Engine from '../libs/ECC-CGP-Engine';
-
-
-import {Engine, CANNON, THREE} from '../libs/ECC-CGP-Engine';
-
+import Engine from '../libs/ECC-CGP-Engine';
 
 const engine = new Engine({
     physics: {
@@ -12,67 +8,40 @@ const engine = new Engine({
 });
  
 
-console.log(engine);
-
-
-// instantiate a loader
-// const loader = new THREE.TextureLoader();
-
-// // load a resource
-// loader.load(
-// 	// resource URL
-// 	'models/temp/cube2/leather-red.png',
-
-// 	// onLoad callback
-// 	function ( texture ) {
-// 		// in this example we create the material when the texture is loaded
-// 		const material = new THREE.MeshBasicMaterial( {
-// 			map: texture
-// 		 } );
-// 	},
-
-// 	// onProgress callback currently not supported
-// 	undefined,
-
-// 	// onError callback
-// 	function ( err ) {
-// 		console.error( 'An error happened.' );
-// 	}
-// );
-
-
-
 let Target = null;
+
+let clicked = false;
 
 
 engine.init({
     envPath: "images/bridge",
     models: [
-        "models/temp/cube2/cube2.gltf"
+        "models/temp/cube.gltf"
     ]
 }).then(() => {
 
-    //!! START/INIT
-    Target = engine.getMeshByName("sofa");
-    
+    // Initial (run only one time)
+    addEventListener('click', ()=> {
+        clicked = true; // Executed when Left-CLick
+    });
 
-    // Load Color Map
-    const diffuse = new THREE.TextureLoader().load( 'models/temp/cube2/leather-red.png' );
-
-    // Create Material with the diffuse
-    const material = new THREE.MeshBasicMaterial( { map: diffuse} );
-
-    // Assign the Material to the Target
-    Target.material = material;  
-    
-
-    // Optionals
-    material.map.needsUpdate = true; 
-    material.needsUpdate = true
-
-
-    //!! LOOP 60fps
+   
+    // Infinite loop
     engine.start(()=>{
+
+        if(clicked == true) {
+            clicked = false;
+            Target = engine.doRaycast()[0].mesh; // Select and object using Left-Click
+            console.log(Target.name, 'is selected');
+        }
+
+        if(Target == null) {                    // Check if the Target is null
+            return;
+        }
+
+        // Do something with the Target below.
+        //
+        //
 
     });
     engine.setCameraPosition(30, 20, 20);
