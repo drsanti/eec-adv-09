@@ -24,8 +24,12 @@ engine.init({
     addEventListener('click', ()=> {
         clicked = true; // Executed when Left-CLick
     });
+    addEventListener('ontouchstart', ()=> {
+        clicked = true; // Executed when Touched
+    });
 
    
+    // 
     // Infinite loop
     engine.start(()=>{
 
