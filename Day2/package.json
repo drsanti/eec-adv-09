@@ -58,7 +58,7 @@
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-node-resolve": "4.2.4",
     "style-loader": "0.23.1",
-    "terser": "3.17.0",
+    "terser": "4.8.1",
     "tui-jsdoc-template": "1.2.2",
     "uglify-es": "3.3.9",
     "webpack": "4.40.2",
